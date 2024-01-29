@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Job Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        
+        #searchContainer {
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px 0;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #0056b3;
+        }
+        
+        .countryButton, .embeddingModelButton {
+            background-color: #e7e7e7;
+            border: none;
+            padding: 5px 10px;
+            margin-right: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .countryButton.active, .embeddingModelButton.active {
+            background-color: #007bff;
+            color: white;
+        }
+        
+        #jobListings {
+            padding: 20px;
+        }
+        
+        #jobListings div {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        #jobDetails {
+            background-color: white;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+    </style>
+    <script>
+        let shortInput = document.getElementById('shortInput');
+        let longInput = document.getElementById('longInput');
+        let searchButton = document.getElementById('searchButton');
+        let countryButtons = document.querySelectorAll('.countryButton');
+        let embeddingModelButtons = document.querySelectorAll('.embeddingModelButton');
+        
+        let currentCountry = '';
+        let currentModel = '';
+        
+        // Example of handling country buttons
+        countryButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                currentCountry = this.getAttribute('data-country');
+                searchJobs();
+            });
+        });
+        
+        // Example of handling model buttons
+        embeddingModelButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                currentModel = this.getAttribute('data-model');
+                searchJobs();
+            });
+        });
+        
+        searchButton.addEventListener('click', function() {
+            searchJobs();
+        });
+        
+        function searchJobs() {
+            let shortInputValue = shortInput.value;
+            let longInputValue = longInput.value;
+        
+            // Here you'll need to implement the logic to fetch jobs
+            // For now, let's just log the inputs
+            console.log(`Searching jobs with ${shortInputValue}, ${longInputValue}, in ${currentCountry} with model ${currentModel}`);
+            
+            // After fetching jobs, call a function to display them
+            displayJobs([]);
+        }
+        
+        function displayJobs(jobs) {
+            let jobListings = document.getElementById('jobListings');
+            jobListings.innerHTML = ''; // Clear current listings
+        
+            jobs.forEach(job => {
+                let jobElement = document.createElement('div');
+                jobElement.innerText = job.title; // Adjust according to your job object structure
+                jobListings.appendChild(jobElement);
+            });
+        }
+        
+        // Initial call to load jobs
+        searchJobs();
+
+    </script>
+    <!-- Add your CSS links here -->
+</head>
+<body>
+    <div id="searchContainer">
+        <!-- Search Inputs -->
+        <input type="text" id="shortInput" placeholder="Job title, keywords, or company">
+        <textarea id="longInput" placeholder="Tell us about you"></textarea>
+        <button id="searchButton">Search</button>
+
+        <!-- Country Filters -->
+        <button class="countryButton" data-country="US">US</button>
+        <button class="countryButton" data-country="IN">IN</button>
+        <!-- Add other countries -->
+
+        <!-- Embedding Model -->
+        <button class="embeddingModelButton" data-model="Model1">Model1</button>
+        <!-- Add other models -->
+    </div>
+
+    <div id="jobListings">
+        <!-- Job listings will be added here -->
+    </div>
+
+    <div id="jobDetails">
+        <!-- Job details will be shown here -->
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
